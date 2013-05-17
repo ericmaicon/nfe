@@ -1,5 +1,11 @@
-nfe
+Nota Fiscal Eletrônica
 ===
-Início
+Projeto para criação do arquivo XML.
 
-teste
+=== 
+TODO:
+
+# Fazer get e set nas classes de parâmetros
+# Montar Classe de Envio
+# Definir PSR
+# Validar nomes

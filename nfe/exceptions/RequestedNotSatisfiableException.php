@@ -6,12 +6,12 @@
  * @license
  */
 
-namespace nfe\base;
+namespace nfe\exceptions;
 
 /**
  * @author Eric Maicon <eric@ericmaicon.com.br>
  * @since 1.0
  */
-class Exception extends \Exception {
+class RequestedNotSatisfiableException extends \Exception {
     
 }
