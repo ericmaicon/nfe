@@ -35,7 +35,7 @@ use Nfe;
  */
 abstract class Document extends Component {
 
-    private $xml = '';
+    protected $xml = '';
     private $cabecalho = false;
     private $versaoDados;
     private $metodo;
@@ -156,7 +156,17 @@ EOF;
         if ($this->cabecalho) {
             $this->xml .= $this->cabecalho();
         }
+
+        $this->xml .= $this->body();
     }
+
+    /**
+     * 
+     * @param 
+     * @return String
+     * @throws
+     */
+    abstract function body();
 
     /**
      * 
