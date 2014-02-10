@@ -53,7 +53,9 @@ Exemplificando, levando em consideração um ambiente em que:
 # Mais informações:
 
 http://jornalggn.com.br/blog/luisnassif/o-funcionamento-da-nota-fiscal-eletronica
+
 https://nfe.mps.com.br/Portal/Nfe.aspx
+
 http://www.rt1.com.br/drupal/?q=content/como-funciona-nota-fiscal-eletr%C3%B4nica-nfe
 
 # Como usar essa biblioteca:
