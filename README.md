@@ -43,12 +43,12 @@ Exemplificando, levando em consideração um ambiente em que:
 
     O cliente está no estado de São Paulo e deseja emitir uma nota para um cliente do estado de Goiás.
 
-# O primeiro passo é consultar se o CPF ou CNPJ do comprador está hábil para a emissão da NFe (NfeConsultaCadastro);
-# Se sim, é feito o envio da NFe (NfeRecepcao);
-# Como o método de envio de NFe é assíncrono, é feita a verificação se a NFe foi emitida com sucesso (NfeRetRecepcao);
-# Se concluído, pode consultar uma NFe (NfeConsultaProtocolo);
-# Pode cancelar uma nota ();
-# Pode corrigir uma nota ();
+* O primeiro passo é consultar se o CPF ou CNPJ do comprador está hábil para a emissão da NFe (NfeConsultaCadastro);
+* Se sim, é feito o envio da NFe (NfeRecepcao);
+* Como o método de envio de NFe é assíncrono, é feita a verificação se a NFe foi emitida com sucesso (NfeRetRecepcao);
+* Se concluído, pode consultar uma NFe (NfeConsultaProtocolo);
+* Pode cancelar uma nota ();
+* Pode corrigir uma nota ();
 
 # Mais informações:
 
@@ -58,3 +58,4 @@ http://www.rt1.com.br/drupal/?q=content/como-funciona-nota-fiscal-eletr%C3%B4nic
 
 # Como usar essa biblioteca:
 
+'Ainda vou continuar esse README.md'
