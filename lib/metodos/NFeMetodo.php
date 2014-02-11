@@ -20,34 +20,35 @@ namespace metodos;
  **/
 abstract class NFeMetodo {
 
-    protected $model;
-    protected $xml;
-    protected $assignedXml;
+    protected $request;
+    protected $response;
+    private $doc;
+    private $xml;
+    private $signedXml;
     protected $encapsulatedXml;
+    protected $signable = true;
     
     /**
      * Método construtor que preenche a classe
      * 
-     * @param $array
-     * @throws
+     * @param $request
      * @author Eric Maicon
      */
-    public function __construct($model = null) {
-        if(!isset($model)) {
-            throw new \exceptions\MissingParameterException("Para que seja criado o XML, é necessário passar o model com os valores de cada TAG para o método construtor.");
+    public function __construct($request = null) {
+        if(!isset($request)) {
+            throw new \exceptions\MissingParameterException("Para que seja criado o XML, é necessário passar o request com os valores de cada TAG para o método construtor.");
         }
 
-        if(!($model instanceof \parametros\NFeModel)) {
+        if(!($request instanceof \request\NFeRequest)) {
             throw new \exceptions\WrongParameterException("O Parâmetro deve ser do tipo NFeModel.");
         }
 
-        $this->model = $model;
+        $this->request = $request;
     }
 
     /**
      * Método que retorna o XML Pronto
      * 
-     * @throws
      * @author Eric Maicon
      */
     public abstract function getXml();
@@ -55,7 +56,6 @@ abstract class NFeMetodo {
     /**
      * Método que retorna o XML de Exemplo
      * 
-     * @throws
      * @author Eric Maicon
      */
     public abstract function getXmlExample();
@@ -63,60 +63,118 @@ abstract class NFeMetodo {
     /**
      * Método que retorna o XML já envelopado
      * 
-     * @throws
      * @author Eric Maicon
      */
-    protected abstract function envelopa();
+    protected abstract function getEnvelopedXml($xml);
 
     /**
      * Assina o XML
      * 
-     * @throws
      * @author Eric Maicon
      */
     public function sign() {
-        if(!isset($this->xml)) {
-            $this->getXml();
+        if(isset($this->signedXml)) {
+            return $this->signedXml;
         }
 
-        // var_dump(\NFe::get("certificado", "certificado"));
+        //transformando o xml em um DOM
+        $this->doc = new \DOMDocument();
+        $this->doc->loadXml($this->getXml());
 
-        $doc = new \DOMDocument();
-        $doc->loadXml($this->xml);
-        // $objDSig = new \XMLSecurityDSig();
-        // $objDSig->setCanonicalMethod(\XMLSecurityDSig::EXC_C14N);
-        // $objDSig->addReference($doc, \XMLSecurityDSig::SHA1, array('http://www.w3.org/2000/09/xmldsig#enveloped-signature', 'http://www.w3.org/2001/10/xml-exc-c14n#'));
-        // $objKey = new \XMLSecurityKey(\XMLSecurityKey::RSA_SHA1, array('type'=>'private'));
-        // $objKey->loadKey(dirname(__FILE__) . 'privateKeyNoPass.pem', TRUE);
-        // $objDSig->sign($objKey);
-        // $objDSig->add509Cert(file_get_contents(dirname(__FILE__) . 'cert.pem'));
-        // $objDSig->appendSignature($doc->documentElement);
-        // $doc->save(dirname(__FILE__) . 'signed.xml');
+        //é assinável?
+        if($this->signable) {
+            //carregando a chave
+        //     $chave = \helpers\FileHelper::valida(\NFe::getBasePath() . \NFe::CERT_DIR . \NFe::get("certificado", "chave"));
+
+        //     //carregando o certificado
+        //     $certificado = \helpers\FileHelper::valida(\NFe::getBasePath() . \NFe::CERT_DIR . \NFe::get("certificado", "certificado"));
+
+        //     //Começando a assinatura
+        //     $objDSig = new \XMLSecurityDSig();
+        //     $objDSig->setCanonicalMethod(\XMLSecurityDSig::EXC_C14N);
+        //     $objDSig->addReference($doc, \XMLSecurityDSig::SHA1, array('http://www.w3.org/2000/09/xmldsig#enveloped-signature', 'http://www.w3.org/2001/10/xml-exc-c14n#'));
+        //     $objKey = new \XMLSecurityKey(\XMLSecurityKey::RSA_SHA1, array('type' => 'private'));
+        //     $objKey->loadKey($chave, TRUE);
+        //     $objDSig->sign($objKey);
+        //     $objDSig->add509Cert(file_get_contents($certificado));
+        //     $objDSig->appendSignature($this->doc->documentElement);
+        }
+
+        $this->signedXml = $this->doc->saveXml();
+
+        return $this->signedXml;
     }
 
     /**
+     * Valida com o XSD se está com toda a estrutura correta
      * 
-     * 
-     * @throws
      * @author Eric Maicon
      */
     public function validate() {
-        //TODO
-        echo "validando";
+        $this->sign();
+
+        //carregando o xsd
+        $xsd = \helpers\FileHelper::valida(\NFe::getBasePath() . \NFe::XSD_DIR . $this->request->xsd);
+
+        return $this->doc->schemaValidate($xsd);
     }
 
     /**
+     * Envelopa o XML
      * 
-     * 
-     * @param page
-     * @param pageable
-     * @param indrCriticidade
-     * @throws
      * @author Eric Maicon
      */
-    public function send() {
-        //TODO
-        echo "enviando";
+    public function envelop() {
+        if(isset($this->encapsulatedXml)) {
+            return $this->encapsulatedXml;
+        }
+
+        //removendo o cabeçalho do xml, pois ele fica no encapsulamento
+        $xml = $this->sign();
+        $xml = str_replace("<?xml version=\"1.0\" encoding=\"UTF-8\"?>", "", $xml);
+
+        $this->encapsulatedXml = $this->treatXml($this->getEnvelopedXml($xml));
+
+        return $this->encapsulatedXml;
+    }
+
+    /**
+     * Remove tabs e espaços do XML
+     *
+     * @author Eric Maicon
+     */
+    private function treatXml($xml) {
+        $xml = preg_replace('/(\s\s+|\t|\n)/', '', $xml);
+
+        return $xml;
+    }
+
+    /**
+     * Enviar para o SEFAZ 
+     *
+     * @param $responseFile
+     * @author Eric Maicon
+     */
+    public function send($responseFile) {
+        if($this->validate()) {
+
+            //carregando o certificado
+            $certificado = \helpers\FileHelper::valida(\NFe::getBasePath() . \NFe::CERT_DIR . \NFe::get("certificado", "certificado"));
+
+            //pegando a url
+            $url = \NFe::get($this->request->UF, $this->request->servico);
+
+            //envelopando o XML
+            $xmlFinal = $this->envelop();
+
+            //Enviando para o SEFAZ
+            $response = \helpers\CurlHelper::send($url, $certificado, $xmlFinal);
+
+            $arrayDeValores = \helpers\ArrayHelper::xmlToArray($response);
+            \helpers\ArrayHelper::arrayToBean($arrayDeValores, $responseFile);
+        } else {
+            throw new \exceptions\NfeException("XML não validado. Verifique!");
+        }
     }
 
 }

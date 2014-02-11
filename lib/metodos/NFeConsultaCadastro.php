@@ -21,21 +21,32 @@ namespace metodos;
 class NFeConsultaCadastro extends \metodos\NFeMetodo {
 
     /**
+     * Sobreescrita do construtor para setar o signable como false
+     * 
+     * @param $request
+     * @author Eric Maicon
+     */
+    public function __construct($request = null) {
+        $this->signable = false;
+
+        parent::__construct($request);
+    }
+
+    /**
      * Método que retorna o XML Pronto
      * 
-     * @throws
      * @author Eric Maicon
      */
     public function getXml() {
         $this->xml = <<<EOF
 <?xml version="1.0" encoding="UTF-8"?>
-<ConsCad versao="token" xmlns="http://www.portalfiscal.inf.br/nfe"
+<ConsCad versao="{$this->request->versao}" xmlns="http://www.portalfiscal.inf.br/nfe"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://www.portalfiscal.inf.br/nfe {$this->model->xsd} ">
+    xsi:schemaLocation="http://www.portalfiscal.inf.br/nfe {$this->request->xsd} ">
     <infCons>
-        <xServ>{$this->model->xServ}</xServ>
-        <UF>{$this->model->UF}</UF>
-        <IE>{$this->model->IE}</IE>
+        <xServ>{$this->request->xServ}</xServ>
+        <UF>{$this->request->UF}</UF>
+        <IE>{$this->request->IE}</IE>
     </infCons>
 </ConsCad>
 EOF;
@@ -45,7 +56,6 @@ EOF;
     /**
      * Método que retorna o XML de Exemplo
      * 
-     * @throws
      * @author Eric Maicon
      */
     public function getXmlExample() {
@@ -66,22 +76,22 @@ EOF;
     /**
      * Método que retorna o XML já envelopado
      * 
-     * @throws
+     * @param $xml
      * @author Eric Maicon
      */
-    protected function envelopa() {
+    protected function getEnvelopedXml($xml) {
         return <<<EOF
 <?xml version="1.0" encoding="utf-8"?>
 <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
   <soap12:Header>
     <nfeCabecMsg xmlns="http://www.portalfiscal.inf.br/nfe/wsdl/CadConsultaCadastro2">
-      <cUF>string</cUF>
-      <versaoDados>string</versaoDados>
+      <cUF>{$this->request->UF}</cUF>
+      <versaoDados>{$this->request->versao}</versaoDados>
     </nfeCabecMsg>
   </soap12:Header>
   <soap12:Body>
     <nfeDadosMsg xmlns="http://www.portalfiscal.inf.br/nfe/wsdl/CadConsultaCadastro2">
-    {$this->getXML()}
+    {$xml}
     </nfeDadosMsg>
   </soap12:Body>
 </soap12:Envelope>

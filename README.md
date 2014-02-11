@@ -14,11 +14,15 @@ http://www.nfe.fazenda.gov.br/portal/exibirArquivo.aspx?conteudo=zxlLdxB/oYA=
 
 # Lista de URLs de Homologação:
 
-http://www.nfe.fazenda.gov.br/portal/webServices.aspx?tipoConteudo=Wak0FwB7dKs=
+http://hom.nfe.fazenda.gov.br/portal/webServices.aspx
 
 # Pacote de XSD:
 
-http://www.nfe.fazenda.gov.br/portal/exibirArquivo.aspx?conteudo=JHPL3aK4fDI=
+http://www.nfe.fazenda.gov.br/portal/listaConteudo.aspx?tipoConteudo=/fwLvLUSmU8=
+
+# Validador de XML:
+
+https://www.sefaz.rs.gov.br/nfe/NFE-VAL.aspx
 
 # Métodos atendidos:
 
@@ -50,6 +54,14 @@ Exemplificando, levando em consideração um ambiente em que:
 * Pode cancelar uma nota ();
 * Pode corrigir uma nota ();
 
+# Convertendo o certificado PFX para PEM
+
+    openssl pkcs12 -in certificado.pfx -out certificado.pem -nodes
+
+# Como usar essa biblioteca:
+
+'Ainda vou continuar esse README.md'
+
 # Mais informações:
 
 http://jornalggn.com.br/blog/luisnassif/o-funcionamento-da-nota-fiscal-eletronica
@@ -58,6 +70,6 @@ https://nfe.mps.com.br/Portal/Nfe.aspx
 
 http://www.rt1.com.br/drupal/?q=content/como-funciona-nota-fiscal-eletr%C3%B4nica-nfe
 
-# Como usar essa biblioteca:
+http://www.akadia.com/services/ssh_test_certificate.html
 
-'Ainda vou continuar esse README.md'
+http://www.linhadecodigo.com.br/artigo/1695/iniciando-um-projeto-de-nota-fiscal-eletronica-nfe.aspx

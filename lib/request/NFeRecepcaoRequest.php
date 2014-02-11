@@ -1,6 +1,6 @@
 <?php
 
-namespace parametros;
+namespace request;
 
 /**
  * Histórico de alterações:
@@ -9,30 +9,30 @@ namespace parametros;
  **/
 
 /**
- * Model com todos os campos para consumir o método de consulta de cadastro
+ * Model com todos os campos para consumir o método de emissão de NFe
  * 
  * TODO: mudar de public pra private (get e set)
  *
- * @class NFeConsultaCadastroModel
+ * @class NFeRecepcaoRequest
  * @version <1.0.0>
  * @date 08/02/2014
  * @author Eric Maicon
  * @license
  * @since 1.0
  **/
-class NFeConsultaCadastroModel extends \parametros\NFeModel {
+class NFeRecepcaoRequest extends \request\NFeRequest {
 
-    public $xServ;
-    public $UF;
-    public $IE;
+    public $idLote;
+    public $Id;
 
     /**
      * Método que define o xsd padrão, caso não seja enviado
      * 
-     * @throws
      * @author Eric Maicon
      */
     public function __construct() {
-        $this->xsd = 'consCad_v2.00.xsd';
+        $this->versao = '2.00';
+        $this->xsd = 'enviNFe_v2.00.xsd';
+        $this->servico = 'NfeRecepcao2';
     }
 }

@@ -1,7 +1,5 @@
 <?php
 
-define('BASE_PATH', realpath(dirname(__FILE__)));
-
 /**
  * Histórico de alterações:
  * {dd/mm/yyyy} {autor} {descrição}
@@ -22,6 +20,12 @@ class NFe {
 
     private static $confFile;
 
+    const LIB_DIR = "lib/";
+    const WSDL_DIR = "wsdl/";
+    const CERT_DIR = "cert/";
+    const XSD_DIR = "xsd/";
+    const VENDOR_DIR = "vendor/";
+
     /**
      * Método que faz o autoload das classes utilizadas
      * 
@@ -30,22 +34,43 @@ class NFe {
      * @author Eric Maicon
      */
     public static function autoload($className) {
-        $filename = BASE_PATH . '/' . str_replace('\\', '/', $className) . '.php';
+        $filename = self::getBasePath() . self::LIB_DIR . '/' . str_replace('\\', '/', $className) . '.php';
         if(is_file($filename)) {
             require($filename);
         } else {
-            throw new \exceptions\FileNotFoundException();
+            throw new \exceptions\FileNotFoundException("O arquivo " . $className . " não foi encontrado.");
         }
+    }
+
+    /**
+     * Método inicial, que carrega os ini file, faz o require nos vendors...
+     * 
+     * @param $confFile
+     * @author Eric Maicon
+     */
+    public static function configure($confFile) {
+        self::loadVendors();
+        self::parseIniFile($confFile);
+    }
+
+    /**
+     * Método que faz o require das libs na pasta vendor
+     *
+     * TODO: Verificar se tem um jeito melhor de fazer isso (dinâmico)
+     * 
+     * @author Eric Maicon
+     */
+    private static function loadVendors() {
+        require_once(self::getBasePath() . self:: VENDOR_DIR .'/xmlseclibs.php');
     }
 
     /**
      * Método que carrega as configurações do arquivo
      * 
      * @param $confFile
-     * @throws
      * @author Eric Maicon
      */
-    public static function configure($confFile) {
+    private static function parseIniFile($confFile) {
         self::$confFile = parse_ini_file($confFile, true);
     }
 
@@ -54,7 +79,6 @@ class NFe {
      * 
      * @param $confGroup
      * @param $confName
-     * @throws
      * @author Eric Maicon
      */
     public static function get($confGroup, $confName) {
@@ -63,6 +87,15 @@ class NFe {
         }
 
         return self::$confFile[$confGroup][$confName];
+    }
+
+    /**
+     * Retorna caminho de pastas do sistema
+     * 
+     * @author Eric Maicon
+     */
+    public static function getBasePath() {
+        return realpath(dirname(__FILE__) . '/../') . '/';
     }
 }
 
