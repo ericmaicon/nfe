@@ -28,6 +28,9 @@ class NFeConsultaCadastro extends \metodos\NFeMetodo {
      */
     public function __construct($request = null) {
         $this->signable = false;
+        $this->versao = '2.00';
+        $this->xsd = 'consCad_v2.00.xsd';
+        $this->servico = 'NfeConsultaCadastro';
 
         parent::__construct($request);
     }
@@ -40,13 +43,13 @@ class NFeConsultaCadastro extends \metodos\NFeMetodo {
     public function getXml() {
         $this->xml = <<<EOF
 <?xml version="1.0" encoding="UTF-8"?>
-<ConsCad versao="{$this->request->versao}" xmlns="http://www.portalfiscal.inf.br/nfe"
+<ConsCad versao="{$this->versao}" xmlns="http://www.portalfiscal.inf.br/nfe"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://www.portalfiscal.inf.br/nfe {$this->request->xsd} ">
+    xsi:schemaLocation="http://www.portalfiscal.inf.br/nfe {$this->xsd} ">
     <infCons>
-        <xServ>{$this->request->xServ}</xServ>
-        <UF>{$this->request->UF}</UF>
-        <IE>{$this->request->IE}</IE>
+        <xServ>{$this->request['xServ']}</xServ>
+        <UF>{$this->request['UF']}</UF>
+        <IE>{$this->request['IE']}</IE>
     </infCons>
 </ConsCad>
 EOF;
@@ -85,8 +88,8 @@ EOF;
 <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
   <soap12:Header>
     <nfeCabecMsg xmlns="http://www.portalfiscal.inf.br/nfe/wsdl/CadConsultaCadastro2">
-      <cUF>{$this->request->UF}</cUF>
-      <versaoDados>{$this->request->versao}</versaoDados>
+      <cUF>{$this->request['UF']}</cUF>
+      <versaoDados>{$this->versao}</versaoDados>
     </nfeCabecMsg>
   </soap12:Header>
   <soap12:Body>

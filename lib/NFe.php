@@ -97,7 +97,103 @@ class NFe {
     public static function getBasePath() {
         return realpath(dirname(__FILE__) . '/../') . '/';
     }
+
+    /**
+     * Retorna o código do estado
+     * http://dtr2001.saude.gov.br/sas/decas/anexo01.mansia.htm
+     * 
+     * @author Eric Maicon
+     */
+    public static function getUfCode($UF) {
+        switch($UF) {
+            case 'RO': 
+                return 11;
+                break;
+            case 'AC': 
+                return 12;
+                break;
+            case 'AM': 
+                return 13;
+                break;
+            case 'RR': 
+                return 14;
+                break;
+            case 'PA': 
+                return 15;
+                break;
+            case 'AP': 
+                return 16;
+                break;
+            case 'TO': 
+                return 17;
+                break;
+            case 'MA': 
+                return 21;
+                break;
+            case 'PI': 
+                return 22;
+                break;
+            case 'CE': 
+                return 23;
+                break;
+            case 'RN': 
+                return 24;
+                break;
+            case 'PB': 
+                return 25;
+                break;
+            case 'PE': 
+                return 26;
+                break;
+            case 'AL': 
+                return 27;
+                break;
+            case 'SE': 
+                return 28;
+                break;
+            case 'BA': 
+                return 29;
+                break;
+            case 'MG': 
+                return 31;
+                break;
+            case 'ES': 
+                return 32;
+                break;
+            case 'RJ': 
+                return 33;
+                break;
+            case 'SP': 
+                return 35;
+                break;
+            case 'PR': 
+                return 41;
+                break;
+            case 'SC': 
+                return 42;
+                break;
+            case 'RS': 
+                return 43;
+                break;
+            case 'MS': 
+                return 50;
+                break;
+            case 'MT': 
+                return 51;
+                break;
+            case 'GO': 
+                return 52;
+                break;
+            case 'DF': 
+                return 53;
+                break;
+        }
+    }
+
 }
+
+setlocale(LC_ALL, "pt_BR", "pt_BR.utf-8", "portuguese");
+date_default_timezone_set('America/Sao_Paulo');
 
 /**
  * Fazendo o carregamento automático das classes. 

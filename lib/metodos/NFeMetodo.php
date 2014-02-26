@@ -22,11 +22,16 @@ abstract class NFeMetodo {
 
     protected $request;
     protected $response;
+
+    protected $xsd;
+    public $versao;
+    public $servico;
+    protected $signable = true;
+    
     private $doc;
     private $xml;
     private $signedXml;
     protected $encapsulatedXml;
-    protected $signable = true;
     
     /**
      * Método construtor que preenche a classe
@@ -37,10 +42,6 @@ abstract class NFeMetodo {
     public function __construct($request = null) {
         if(!isset($request)) {
             throw new \exceptions\MissingParameterException("Para que seja criado o XML, é necessário passar o request com os valores de cada TAG para o método construtor.");
-        }
-
-        if(!($request instanceof \request\NFeRequest)) {
-            throw new \exceptions\WrongParameterException("O Parâmetro deve ser do tipo NFeModel.");
         }
 
         $this->request = $request;
@@ -114,7 +115,7 @@ abstract class NFeMetodo {
         $this->sign();
 
         //carregando o xsd
-        $xsd = \helpers\FileHelper::valida(\NFe::getBasePath() . \NFe::XSD_DIR . $this->request->xsd);
+        $xsd = \helpers\FileHelper::valida(\NFe::getBasePath() . \NFe::XSD_DIR . $this->xsd);
 
         return $this->doc->schemaValidate($xsd);
     }
@@ -155,14 +156,15 @@ abstract class NFeMetodo {
      * @param $responseFile
      * @author Eric Maicon
      */
-    public function send($responseFile) {
+    public function send() {
         if($this->validate()) {
 
             //carregando o certificado
             $certificado = \helpers\FileHelper::valida(\NFe::getBasePath() . \NFe::CERT_DIR . \NFe::get("certificado", "certificado"));
 
+
             //pegando a url
-            $url = \NFe::get($this->request->UF, $this->request->servico);
+            $url = \NFe::get($this->request['UF'], $this->servico);
 
             //envelopando o XML
             $xmlFinal = $this->envelop();
@@ -171,7 +173,7 @@ abstract class NFeMetodo {
             $response = \helpers\CurlHelper::send($url, $certificado, $xmlFinal);
 
             $arrayDeValores = \helpers\ArrayHelper::xmlToArray($response);
-            \helpers\ArrayHelper::arrayToBean($arrayDeValores, $responseFile);
+            return $arrayDeValores;
         } else {
             throw new \exceptions\NfeException("XML não validado. Verifique!");
         }

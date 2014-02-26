@@ -13,16 +13,12 @@ require_once($frameworkPath . '/NFe.php');
 //Iniciando a configuração da lib
 NFe::configure($configFile);
 
-//Criando o model de request
-$consultaCadastroRequest = new request\NFeConsultaCadastroRequest();
-$consultaCadastroRequest->xServ = "CONS-CAD";
-$consultaCadastroRequest->UF = "SP";
-$consultaCadastroRequest->IE = "ISENTO";
-
-//Criando o model de response
-$consultaCadastroResponse = new response\NFeConsultaCadastroResponse();
-
 //Consumindo
-$consultaCadastro = new metodos\NFeConsultaCadastro($consultaCadastroRequest);
-$consultaCadastro->send($consultaCadastroResponse);
-print_r($consultaCadastroResponse);
+$consultaCadastro = new metodos\NFeConsultaCadastro(
+    array(
+        'xServ' => 'CONS-CAD',
+        'UF' => 'SP',
+        'IE' => 'ISENTO',
+    )
+);
+print_r($consultaCadastro->send());
