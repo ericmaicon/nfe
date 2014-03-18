@@ -16,7 +16,7 @@ Projeto em PHP que pretende contemplar:
 * Consulta de cadastro (NfeConsultaCadastro)
 * Eventos de Cancelamento NFe (RecepcaoEvento)
 
-# Funcionamento:
+# Conceito da NFe:
 
 A NFe é uma forma criada pela receita federal para facilitar a emissão de notas fiscais. Grosseiramente, para que um software emite uma nota, ele deve acessar o webservice do SEFAZ do *ESTADO DO VENDEDOR* e enviar os dados. Se tudo estiver correto, ele receberá um OK.
 
@@ -28,7 +28,7 @@ Para que a NFe passe pela validação, além de todos os dados necessários, há
 
 Se validado, após a emissão, o Web Service do SEFAZ irá retornar um documento contendo o protocolo de aceitação e a autorização para impressão da nota. Com isso, pode ser feito a impressão do DANFE, que é a representação da nota fiscal em papel A4 comum.
 
-# Como usar essa biblioteca:
+# Funcionamento:
 
 ## Uso geral:
 
