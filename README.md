@@ -41,311 +41,349 @@ require_once($frameworkPath . '/NFe.php');
 
 Existe um arquivo de configuração que contém o caminho da chave (Arquivo com extensão .PEM) e as URLS de todos os estados e métodos WebService. Para utilizar a biblioteca, é preciso passar esse arquivo como parâmetro de configuração:
 
-    $configFile = __DIR__ . '/conf/conf.ini';
-    NFe::configure($configFile);
+```php
+$configFile = __DIR__ . '/conf/conf.ini';
+NFe::configure($configFile);
+```
 
 A biblioteca tem métodos em comum para todos os consumos:
 
 *Retornar o XML:*
-    $consumo = metodos\NfeInutilizacao(
-        array(
-            ...
-        )
-    );
-    $consumo->UF = "GO";
-    $consumo->getXml();
+```php
+$consumo = metodos\NfeInutilizacao(
+    array(
+        ...
+    )
+);
+$consumo->UF = "GO";
+$consumo->getXml();
+```
 
 *Retornar um XML de Exemplo:*
-    $consumo = metodos\NfeInutilizacao(
-        array(
-            ...
-        )
-    );
-    $consumo->UF = "GO";
-    $consumo->getXmlExample();
+```php
+$consumo = metodos\NfeInutilizacao(
+    array(
+        ...
+    )
+);
+$consumo->UF = "GO";
+$consumo->getXmlExample();
+```
 
 *Retornar um XML dentro do Envelope:*
-    $consumo = metodos\NfeInutilizacao(
-        array(
-            ...
-        )
-    );
-    $consumo->UF = "GO";
-    $xml = $consumo->getXml();
-    $consumo->envelop($xml);
+```php
+$consumo = metodos\NfeInutilizacao(
+    array(
+        ...
+    )
+);
+$consumo->UF = "GO";
+$xml = $consumo->getXml();
+$consumo->envelop($xml);
+```
 
 *Retornar um xml assinado:*
-    $consumo = metodos\NfeInutilizacao(
-        array(
-            ...
-        )
-    );
-    $consumo->UF = "GO";
-    $xml = $consumo->getXml();
-    $consumo->sign($xml);
+```php
+$consumo = metodos\NfeInutilizacao(
+    array(
+        ...
+    )
+);
+$consumo->UF = "GO";
+$xml = $consumo->getXml();
+$consumo->sign($xml);
+```
 
 *Validar um XML:*
-    $consumo = metodos\NfeInutilizacao(
-        array(
-            ...
-        )
-    );
-    $consumo->UF = "GO";
-    $xml = $consumo->getXml();
-    $consumo->validate($xml);
+```php
+$consumo = metodos\NfeInutilizacao(
+    array(
+        ...
+    )
+);
+$consumo->UF = "GO";
+$xml = $consumo->getXml();
+$consumo->validate($xml);
+```
 
 *Enviar para o SEFAZ:*
-    $consumo = metodos\NfeInutilizacao(
-        array(
-            ...
-        )
-    );
-    $consumo->UF = "GO";
-    $consumo->send();
+```php
+$consumo = metodos\NfeInutilizacao(
+    array(
+        ...
+    )
+);
+$consumo->UF = "GO";
+$consumo->send();
+```
 
 ## Emissão de Notas fiscais:
 
 Para emitir uma nota fiscal, levando em consideração que todos os dados já estão corretos, basta chamar o serviço, passando um array com os parâmetros:
-    $recepcao = new metodos\NFeRecepcao(
-        array(
-            'idLote' => '000000000000001',
-            'NFe' => array(
-                'infNFe' => array(
-                    'ide' => array(
-                        'cUF' => 35,
-                        'cNF' => $cNF,
-                        'natOp' => 'venda',
-                        'indPag' => 1,
-                        'mod' => 55,
-                        'serie' => "0",
-                        'nNF' => "123456789",
-                        'dEmi' => '2014-02-26',
-                        'tpNF' => 1,
-                        'cMunFG' => 3550308,
-                        'tpImp' => 1,
-                        'tpEmis' => 1,
-                        'cDV' => '',
-                        'tpAmb' => 2,
-                        'finNFe' => 1,
-                        'procEmi' => 0,
-                        'verProc' => 'v1.0',
+```php
+$recepcao = new metodos\NFeRecepcao(
+    array(
+        'idLote' => '000000000000001',
+        'NFe' => array(
+            'infNFe' => array(
+                'ide' => array(
+                    'cUF' => 35,
+                    'cNF' => $cNF,
+                    'natOp' => 'venda',
+                    'indPag' => 1,
+                    'mod' => 55,
+                    'serie' => "0",
+                    'nNF' => "123456789",
+                    'dEmi' => '2014-02-26',
+                    'tpNF' => 1,
+                    'cMunFG' => 3550308,
+                    'tpImp' => 1,
+                    'tpEmis' => 1,
+                    'cDV' => '',
+                    'tpAmb' => 2,
+                    'finNFe' => 1,
+                    'procEmi' => 0,
+                    'verProc' => 'v1.0',
+                ),
+                'emit' => array(
+                    'CNPJ' => '',
+                    'xNome' => '',
+                    'enderEmit' => array(
+                        'xLgr' => 'RUA PRUDENTE DE MORAES',
+                        'nro' => "100",
+                        'xBairro' => 'CENTRAL',
+                        'cMun' => 3553708,
+                        'xMun' => 'Goiania',
+                        'UF' => 'SP',
+                        'CEP' => 74350000,
                     ),
-                    'emit' => array(
-                        'CNPJ' => '',
-                        'xNome' => '',
-                        'enderEmit' => array(
-                            'xLgr' => 'RUA PRUDENTE DE MORAES',
-                            'nro' => "100",
-                            'xBairro' => 'CENTRAL',
-                            'cMun' => 3553708,
-                            'xMun' => 'Goiania',
-                            'UF' => 'SP',
-                            'CEP' => 74350000,
-                        ),
-                        'IE' => 'ISENTO',
-                        'CRT' => 3,
+                    'IE' => 'ISENTO',
+                    'CRT' => 3,
+                ),
+                'dest' => array(
+                    'CNPJ' => '',
+                    'xNome' => '',
+                    'enderDest' => array(
+                        'xLgr' => 'RUA ENG FUAD RASSI',
+                        'nro' => "100",
+                        'xBairro' => 'VILA JARAGUA',
+                        'cMun' => 3553708,
+                        'xMun' => 'Goiania',
+                        'UF' => 'SP',
+                        'CEP' => 74350000,
                     ),
-                    'dest' => array(
-                        'CNPJ' => '',
-                        'xNome' => '',
-                        'enderDest' => array(
-                            'xLgr' => 'RUA ENG FUAD RASSI',
-                            'nro' => "100",
-                            'xBairro' => 'VILA JARAGUA',
-                            'cMun' => 3553708,
-                            'xMun' => 'Goiania',
-                            'UF' => 'SP',
-                            'CEP' => 74350000,
-                        ),
-                        'IE' => 'ISENTO',
+                    'IE' => 'ISENTO',
+                ),
+                'det' => array(
+                    'nItem' => 1,
+                    'prod' => array(
+                        'cProd' => 'CFOP9999',
+                        'cEAN' => '',
+                        'xProd' => 'Algum Produto',
+                        'NCM' => '00',
+                        'CFOP' => 5102,
+                        'uCom' => 1,
+                        'qCom' => 1,
+                        'vUnCom' => 100.00,
+                        'vProd' => 100.00,
+                        'cEANTrib' => '',
+                        'uTrib' => 1,
+                        'qTrib' => 1,
+                        'vUnTrib' => 100.00,
+                        'indTot' => 0,
                     ),
-                    'det' => array(
-                        'nItem' => 1,
-                        'prod' => array(
-                            'cProd' => 'CFOP9999',
-                            'cEAN' => '',
-                            'xProd' => 'Algum Produto',
-                            'NCM' => '00',
-                            'CFOP' => 5102,
-                            'uCom' => 1,
-                            'qCom' => 1,
-                            'vUnCom' => 100.00,
-                            'vProd' => 100.00,
-                            'cEANTrib' => '',
-                            'uTrib' => 1,
-                            'qTrib' => 1,
-                            'vUnTrib' => 100.00,
-                            'indTot' => 0,
-                        ),
-                        'imposto' => array(
-                            'ICMS' => array(
-                                'ICMS00' => array(
-                                    'orig' => 0,
-                                    'CST' => "00",
-                                    'modBC' => 0,
-                                    'vBC' => 0,
-                                    'pICMS' => 0,
-                                    'vICMS' => 0,
-                                ),
-                            ),
-                            'IPI' => array(
-                                'clEnq' => 1,
-                                'cSelo' => 1,
-                                'qSelo' => 1,
-                                'cEnq' => 1,
-                                'IPINT' => array(
-                                    'CST' => "02",
-                                ),
-                            ),
-                            'PIS' => array(
-                                'PISAliq' => array(
-                                    'CST' => '01',
-                                    'vBC' => 0,
-                                    'pPIS' => 0,
-                                    'vPIS' => 0,
-                                ),
-                            ),
-                            'COFINS' => array(
-                                'COFINSAliq' => array(
-                                    'CST' => '01',
-                                    'vBC' => 0,
-                                    'pCOFINS' => 0,
-                                    'vCOFINS' => 0,
-                                ),
+                    'imposto' => array(
+                        'ICMS' => array(
+                            'ICMS00' => array(
+                                'orig' => 0,
+                                'CST' => "00",
+                                'modBC' => 0,
+                                'vBC' => 0,
+                                'pICMS' => 0,
+                                'vICMS' => 0,
                             ),
                         ),
-                    ),
-                    'total' => array(
-                        'ICMSTot' => array(
-                            'vBC' => 0,
-                            'vICMS' => 0,
-                            'vBCST' => 0,
-                            'vST' => 0,
-                            'vProd' => 100.00,
-                            'vFrete' => 0,
-                            'vSeg' => 0,
-                            'vDesc' => 0,
-                            'vII' => 0,
-                            'vIPI' => 0,
-                            'vPIS' => 0,
-                            'vCOFINS' => 0,
-                            'vOutro' => 0,
-                            'vNF' => 100.00,
+                        'IPI' => array(
+                            'clEnq' => 1,
+                            'cSelo' => 1,
+                            'qSelo' => 1,
+                            'cEnq' => 1,
+                            'IPINT' => array(
+                                'CST' => "02",
+                            ),
                         ),
-                    ),
-                    'transp' => array(
-                        'modFrete' => 9,
+                        'PIS' => array(
+                            'PISAliq' => array(
+                                'CST' => '01',
+                                'vBC' => 0,
+                                'pPIS' => 0,
+                                'vPIS' => 0,
+                            ),
+                        ),
+                        'COFINS' => array(
+                            'COFINSAliq' => array(
+                                'CST' => '01',
+                                'vBC' => 0,
+                                'pCOFINS' => 0,
+                                'vCOFINS' => 0,
+                            ),
+                        ),
                     ),
                 ),
+                'total' => array(
+                    'ICMSTot' => array(
+                        'vBC' => 0,
+                        'vICMS' => 0,
+                        'vBCST' => 0,
+                        'vST' => 0,
+                        'vProd' => 100.00,
+                        'vFrete' => 0,
+                        'vSeg' => 0,
+                        'vDesc' => 0,
+                        'vII' => 0,
+                        'vIPI' => 0,
+                        'vPIS' => 0,
+                        'vCOFINS' => 0,
+                        'vOutro' => 0,
+                        'vNF' => 100.00,
+                    ),
+                ),
+                'transp' => array(
+                    'modFrete' => 9,
+                ),
             ),
-        )
-    );
+        ),
+    )
+);
+```
 
 É obrigatório informar o estado de emissão, para identificar a URL de envio: 
-    $recepcao->UF = 'SP';
+```php
+$recepcao->UF = 'SP';
+```
 
 Para enviar:
-    $recepcao->send();
+```php
+$recepcao->send();
+```
 
 ## Consulta de Processamento:
-    $consulta = new metodos\NfeRetRecepcao(
-        array(
-            'tpAmb' => '2',
-            'nRec' => '351000078534858',
-        )
-    );
-    $consulta->UF = 'SP';
-    $consulta->send();
+```php
+$consulta = new metodos\NfeRetRecepcao(
+    array(
+        'tpAmb' => '2',
+        'nRec' => '351000078534858',
+    )
+);
+$consulta->UF = 'SP';
+$consulta->send();
+```
 
 ## Consulta de NFe:
-    $consulta = new metodos\NFeConsulta(
-        array(
-            'tpAmb' => '2',
-            'xServ' => 'CONSULTAR',
-            'chNFe' => '12334556712334556712334556712334556712334556',
-        )
-    );
-    $consulta->UF = 'SP';
-    $consulta->send();
+```php
+$consulta = new metodos\NFeConsulta(
+    array(
+        'tpAmb' => '2',
+        'xServ' => 'CONSULTAR',
+        'chNFe' => '12334556712334556712334556712334556712334556',
+    )
+);
+$consulta->UF = 'SP';
+$consulta->send();
+```
 
 ## Inutilização:
-    $inutiliza = new metodos\NfeInutilizacao(
-        array(
-            'infInut' => array(
-                'tpAmb' => '2',
-                'xServ' => 'INUTILIZAR',
-                'cUF' => 35,
-                'ano' => 14,
-                'CNPJ' => '',
-                'mod' => '55',
-                'serie' => '12',
-                'nNFIni' => '100000001',
-                'nNFFin' => '100000002',
-                'xJust' => 'Tipo Justificativa',
-            ),
-        )
-    );
-    $inutiliza->UF = 'SP';
-    $inutiliza->send();
+```php
+$inutiliza = new metodos\NfeInutilizacao(
+    array(
+        'infInut' => array(
+            'tpAmb' => '2',
+            'xServ' => 'INUTILIZAR',
+            'cUF' => 35,
+            'ano' => 14,
+            'CNPJ' => '',
+            'mod' => '55',
+            'serie' => '12',
+            'nNFIni' => '100000001',
+            'nNFFin' => '100000002',
+            'xJust' => 'Tipo Justificativa',
+        ),
+    )
+);
+$inutiliza->UF = 'SP';
+$inutiliza->send();
+```
 
 ## Evento de Cancelamento:
-    $cancelamento = new metodos\RecepcaoEvento(
-        array(
-            'infEvento' => array(
-                'cOrgao' => '11',
-                'tpAmb' => 2,
-                'CNPJ' => '',
-                'chNFe' => '',
-                'dhEvento' => '2013-04-03T17:32:54-04:00',
-                'tpEvento' => '110111',
-                'nSeqEvento' => '20',
-                'verEvento' => '1.00',
-                'detEvento' => array(
-                    'descEvento' => 'Cancelamento',
-                    'nProt' => '111111111111111',
-                    'xJust' => 'Tipo de Justificativa',
-                ),
+```php
+$cancelamento = new metodos\RecepcaoEvento(
+    array(
+        'infEvento' => array(
+            'cOrgao' => '11',
+            'tpAmb' => 2,
+            'CNPJ' => '',
+            'chNFe' => '',
+            'dhEvento' => '2013-04-03T17:32:54-04:00',
+            'tpEvento' => '110111',
+            'nSeqEvento' => '20',
+            'verEvento' => '1.00',
+            'detEvento' => array(
+                'descEvento' => 'Cancelamento',
+                'nProt' => '111111111111111',
+                'xJust' => 'Tipo de Justificativa',
             ),
-        )
-    );
-    $cancelamento->UF = 'SP';
-    $cancelamento->send();
+        ),
+    )
+);
+$cancelamento->UF = 'SP';
+$cancelamento->send();
+```
 
 ## Consulta de Cadastro:
-    $consulta = new metodos\CadConsultaCadastro(
-        array(
-            'infCons' => array(
-                'xServ' => 'CONS-CAD',
-                'UF' => 'GO',
-                'IE' => 'ISENTO',
-            ),
-        )
-    );
-    $consulta->UF = 'SP';
-    $consulta->send();
+```php
+$consulta = new metodos\CadConsultaCadastro(
+    array(
+        'infCons' => array(
+            'xServ' => 'CONS-CAD',
+            'UF' => 'GO',
+            'IE' => 'ISENTO',
+        ),
+    )
+);
+$consulta->UF = 'SP';
+$consulta->send();
+```
 
 # Configurações Extras:
 
 *Definir versão do XML:*
-    $consumo = metodos\NfeInutilizacao();
-    $consumo->versao = "3.01";
+```php
+$consumo = metodos\NfeInutilizacao();
+$consumo->versao = "3.01";
+```
 
 *Definir XSD de validação do XML:*
-    $consumo = metodos\NfeInutilizacao();
-    $consumo->xsd = "inutNFe_v2.00.xsd";
+```php
+$consumo = metodos\NfeInutilizacao();
+$consumo->xsd = "inutNFe_v2.00.xsd";
+```
 
 *TAG para assinatura:*
 
 Quando for utilizar o método sign, pode ser informado a TAG de assinatura:
-    $this->sign($xml, 'infInut');
+```php
+$this->sign($xml, 'infInut');
+```
 
 *Envio*
 
 Você não precisa usar esta biblioteca para gerar o XML. Pode usá-la para assinar um XML existente, ou envelopar, ou ainda só enviar. Veja o cabeçalho do método sign:
 
-    public function send($xml = null, $envelop = true, $sign = true, $returnXml = false) {
-        ...
-    }
+```php
+public function send($xml = null, $envelop = true, $sign = true, $returnXml = false) {
+    ...
+}
+```
 
 *Retorno*
 
