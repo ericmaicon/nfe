@@ -7,16 +7,16 @@ Projeto em PHP que pretende contemplar:
 * Validação com o XSD;
 * Envio.
 
-# Métodos atendidos:
+## Métodos atendidos:
 
-* Emissão ou Recepção de NFe (NfeRecepcao)
+* (#emiss%C3%A3o-de-notas-fiscais)Emissão ou Recepção de NFe (NfeRecepcao)
 * Consulta de processamento da NFe (NfeConsultaCadastro)
 * Consulta da NFe (NfeConsultaProtocolo)
 * Inutilização (NfeInutilizacao)
 * Consulta de cadastro (NfeConsultaCadastro)
 * Eventos de Cancelamento NFe (RecepcaoEvento)
 
-# Conceito da NFe:
+## Conceito da NFe:
 
 A NFe é uma forma criada pela receita federal para facilitar a emissão de notas fiscais. Grosseiramente, para que um software emite uma nota, ele deve acessar o webservice do SEFAZ do *ESTADO DO VENDEDOR* e enviar os dados. Se tudo estiver correto, ele receberá um OK.
 
@@ -28,14 +28,16 @@ Para que a NFe passe pela validação, além de todos os dados necessários, há
 
 Se validado, após a emissão, o Web Service do SEFAZ irá retornar um documento contendo o protocolo de aceitação e a autorização para impressão da nota. Com isso, pode ser feito a impressão do DANFE, que é a representação da nota fiscal em papel A4 comum.
 
-# Funcionamento:
+## Funcionamento:
 
-## Uso geral:
+### Uso geral:
 
 Para iniciar o uso dessa biblioteca, é preciso fazer o import:
 
-    $frameworkPath = __DIR__ . '/../lib';
-    require_once($frameworkPath . '/NFe.php');
+```php
+$frameworkPath = __DIR__ . '/../lib';
+require_once($frameworkPath . '/NFe.php');
+```
 
 Existe um arquivo de configuração que contém o caminho da chave (Arquivo com extensão .PEM) e as URLS de todos os estados e métodos WebService. Para utilizar a biblioteca, é preciso passar esse arquivo como parâmetro de configuração:
 
