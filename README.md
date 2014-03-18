@@ -7,10 +7,6 @@ Projeto em PHP que pretende contemplar:
 * Validação com o XSD;
 * Envio.
 
-# Manual utilizado:
-
-http://www.nfe.fazenda.gov.br/portal/exibirArquivo.aspx?conteudo=zxlLdxB/oYA=
-
 # Métodos atendidos:
 
 * Emissão ou Recepção de NFe (NfeRecepcao)
@@ -356,6 +352,10 @@ Você ainda pode escolher como quer ver o retorno. O padrão é um Array, mas po
 # Convertendo o certificado PFX para PEM
 
     openssl pkcs12 -in certificado.pfx -out certificado.pem -nodes
+
+# Manual utilizado:
+
+http://www.nfe.fazenda.gov.br/portal/exibirArquivo.aspx?conteudo=zxlLdxB/oYA=
 
 # Lista de URLs de Homologação:
 
