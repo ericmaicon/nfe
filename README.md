@@ -39,7 +39,7 @@ $frameworkPath = __DIR__ . '/../lib';
 require_once($frameworkPath . '/NFe.php');
 ```
 
-Existe um arquivo de configuração que contém o caminho da chave (Arquivo com extensão .PEM) e as URLS de todos os estados e métodos WebService. Você pode ver esse arquivo na pasta [https://github.com/ericmaicon/nfe/blob/master/exemplo/conf/conf.ini]exemplos/conf. Para utilizar a biblioteca, é preciso passar esse arquivo como parâmetro de configuração:
+Existe um arquivo de configuração que contém o caminho da chave (Arquivo com extensão .PEM) e as URLS de todos os estados e métodos WebService. Você pode ver esse [arquivo na pasta](https://github.com/ericmaicon/nfe/blob/master/exemplo/conf/conf.ini]exemplos/conf). Para utilizar a biblioteca, é preciso passar esse arquivo como parâmetro de configuração:
 
 ```php
 $configFile = __DIR__ . '/conf/conf.ini';
@@ -117,7 +117,9 @@ $consumo->UF = "GO";
 $consumo->send();
 ```
 
-## Emissão de Notas fiscais:
+## Métodos
+
+### Emissão de Notas fiscais:
 
 Para emitir uma nota fiscal, levando em consideração que todos os dados já estão corretos, basta chamar o serviço, passando um array com os parâmetros:
 ```php
@@ -389,31 +391,33 @@ public function send($xml = null, $envelop = true, $sign = true, $returnXml = fa
 
 Você ainda pode escolher como quer ver o retorno. O padrão é um Array, mas pode retornar o XML de retorno do SEFAZ.
 
-# Convertendo o certificado PFX para PEM
+## Procura por algo a mais?
+
+### Convertendo o certificado PFX para PEM
 
     openssl pkcs12 -in certificado.pfx -out certificado.pem -nodes
 
-# Manual utilizado:
+### Manual utilizado:
 
 http://www.nfe.fazenda.gov.br/portal/exibirArquivo.aspx?conteudo=zxlLdxB/oYA=
 
-# Lista de URLs de Homologação:
+### Lista de URLs de Homologação:
 
 http://hom.nfe.fazenda.gov.br/portal/webServices.aspx
 
-# Pacote de XSD:
+### Pacote de XSD:
 
 http://www.nfe.fazenda.gov.br/portal/listaConteudo.aspx?tipoConteudo=/fwLvLUSmU8=
 
-# Validador de XML:
+### Validador de XML:
 
 https://www.sefaz.rs.gov.br/nfe/NFE-VAL.aspx
 
-# Código de municípios:
+### Código de municípios:
 
 http://www.ibge.gov.br/home/geociencias/areaterritorial/area.shtm
 
-# Mais informações:
+### Mais informações:
 
 http://jornalggn.com.br/blog/luisnassif/o-funcionamento-da-nota-fiscal-eletronica
 
