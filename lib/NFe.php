@@ -49,19 +49,7 @@ class NFe {
      * @author Eric Maicon
      */
     public static function configure($confFile) {
-        self::loadVendors();
         self::parseIniFile($confFile);
-    }
-
-    /**
-     * Método que faz o require das libs na pasta vendor
-     *
-     * TODO: Verificar se tem um jeito melhor de fazer isso (dinâmico)
-     * 
-     * @author Eric Maicon
-     */
-    private static function loadVendors() {
-        require_once(self::getBasePath() . self:: VENDOR_DIR .'/xmlseclibs.php');
     }
 
     /**

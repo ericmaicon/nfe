@@ -1,6 +1,6 @@
 <?php
 
-//mostrando todos os erros
+//mostrando todos os error_get_last(oid)
 ini_set('display_errors', 1);
 
 //configuração de diretórios
@@ -14,11 +14,11 @@ require_once($frameworkPath . '/NFe.php');
 NFe::configure($configFile);
 
 //Consumindo
-$consultaCadastro = new metodos\NFeConsultaCadastro(
+$consulta = new metodos\NfeRetRecepcao(
     array(
-        'xServ' => 'CONS-CAD',
-        'UF' => 'SP',
-        'IE' => 'ISENTO',
+        'tpAmb' => '2',
+        'nRec' => '351000078534858',
     )
 );
-print_r($consultaCadastro->send());
+$consulta->UF = 'SP';
+print_r($consulta->send());

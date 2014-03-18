@@ -9,28 +9,28 @@ namespace metodos;
  **/
 
 /**
- * Classe que consome o webservice NfeConsultaCadastro
+ * Classe que consome o webservice NFeConsulta
  * 
- * @class NFeConsultaCadastro
+ * @class NFeConsulta
  * @version <1.0.0>
- * @date 08/02/2014
+ * @date 18/02/2014
  * @author Eric Maicon
  * @license
  * @since 1.0
  **/
-class NFeConsultaCadastro extends \metodos\NFeMetodo {
+class NFeConsulta extends \metodos\NFeMetodo {
 
     /**
-     * Sobreescrita do construtor para setar o signable como false
+     * Sobreescrita do construtor para setar as variáveis
      * 
      * @param $request
      * @author Eric Maicon
      */
     public function __construct($request = null) {
+        $this->versao = '2.01';
+        $this->xsd = 'consSitNFe_v2.01.xsd';
+        $this->servico = 'NfeConsultaProtocolo';
         $this->signable = false;
-        $this->versao = '2.00';
-        $this->xsd = 'consCad_v2.00.xsd';
-        $this->servico = 'NfeConsultaCadastro';
 
         parent::__construct($request);
     }
@@ -41,18 +41,10 @@ class NFeConsultaCadastro extends \metodos\NFeMetodo {
      * @author Eric Maicon
      */
     public function getXml() {
-        $this->xml = <<<EOF
-<?xml version="1.0" encoding="UTF-8"?>
-<ConsCad versao="{$this->versao}" xmlns="http://www.portalfiscal.inf.br/nfe"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://www.portalfiscal.inf.br/nfe {$this->xsd} ">
-    <infCons>
-        <xServ>{$this->request['xServ']}</xServ>
-        <UF>{$this->request['UF']}</UF>
-        <IE>{$this->request['IE']}</IE>
-    </infCons>
-</ConsCad>
-EOF;
+        $this->xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><consSitNFe versao=\"{$this->versao}\" xmlns=\"http://www.portalfiscal.inf.br/nfe\">";
+        $this->xml .= \helpers\ObjectHelper::objectToStringXml($this->request);
+        $this->xml .= "</consSitNFe>";
+
         return $this->xml;
     }
 
@@ -64,15 +56,13 @@ EOF;
     public function getXmlExample() {
         return <<<EOF
 <?xml version="1.0" encoding="UTF-8"?>
-<ConsCad versao="token" xmlns="http://www.portalfiscal.inf.br/nfe"
+<consSitNFe versao="token" xmlns="http://www.portalfiscal.inf.br/nfe"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://www.portalfiscal.inf.br/nfe consCad_v2.00.xsd ">
-    <infCons>
-        <xServ>xServ</xServ>
-        <UF>AC</UF>
-        <IE>IE</IE>
-    </infCons>
-</ConsCad>
+    xsi:schemaLocation="http://www.portalfiscal.inf.br/nfe consSitNFe_v2.00.xsd ">
+    <tpAmb>1</tpAmb>
+    <xServ>xServ</xServ>
+    <chNFe>chNFe</chNFe>
+</consSitNFe>
 EOF;
     }
 
@@ -87,13 +77,13 @@ EOF;
 <?xml version="1.0" encoding="utf-8"?>
 <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
   <soap12:Header>
-    <nfeCabecMsg xmlns="http://www.portalfiscal.inf.br/nfe/wsdl/CadConsultaCadastro2">
-      <cUF>{$this->request['UF']}</cUF>
+    <nfeCabecMsg xmlns="http://www.portalfiscal.inf.br/nfe/wsdl/NfeConsulta2">
+      <cUF>{$this->UF}</cUF>
       <versaoDados>{$this->versao}</versaoDados>
     </nfeCabecMsg>
   </soap12:Header>
   <soap12:Body>
-    <nfeDadosMsg xmlns="http://www.portalfiscal.inf.br/nfe/wsdl/CadConsultaCadastro2">
+    <nfeDadosMsg xmlns="http://www.portalfiscal.inf.br/nfe/wsdl/NfeConsulta2">
     {$xml}
     </nfeDadosMsg>
   </soap12:Body>

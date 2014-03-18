@@ -87,16 +87,16 @@ class ArrayHelper {
      * @param $array
      * @author Eric Maicon
      */
-    public static function arrayToBean($array, $bean) {
-        foreach($array as $key => $value) {
+    public static function arrayToBean($array) {
+        $retorno = (object)$array;
+
+        foreach($retorno as $key => $value) {
             if(is_array($value)) {
-                self::arrayToBean($value, $bean);
-            } else {
-                if(property_exists($bean, $key)) {
-                    $bean->$key = $value;
-                }
+                $retorno->$key = self::arrayToBean($value);
             }
         }
+
+        return $retorno;
     }
 
 }

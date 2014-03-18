@@ -29,7 +29,8 @@ class NFeRecepcao extends \metodos\NFeMetodo {
     public function __construct($request = null) {
         $this->versao = '2.00';
         $this->xsd = 'enviNFe_v2.00.xsd';
-        $this->servico = 'NfeRecepcao2';
+        $this->servico = 'NfeRecepcao';
+        $this->tagToSign = 'infNFe';
 
         parent::__construct($request);
     }
@@ -40,122 +41,22 @@ class NFeRecepcao extends \metodos\NFeMetodo {
      * @author Eric Maicon
      */
     public function getXml() {
-        $this->xml = <<<EOF
-<?xml version="1.0" encoding="UTF-8"?>
-<enviNFe versao="{$this->versao}" xmlns="http://www.portalfiscal.inf.br/nfe"
-    xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://www.portalfiscal.inf.br/nfe {$this->xsd} ">
-    <idLote>{$this->request['idLote']}</idLote>
-    <NFe>
-        <infNFe Id="{$this->request['NFe']['infNFe']['Id']}" versao="{$this->versao}">
-            <ide>
-                <cUF>{$this->request['NFe']['infNFe']['ide']['cUF']}</cUF>
-                <cNF>{$this->request['NFe']['infNFe']['ide']['cNF']}</cNF>
-                <natOp>{$this->request['NFe']['infNFe']['ide']['natOp']}</natOp>
-                <indPag>{$this->request['NFe']['infNFe']['ide']['indPag']}</indPag>
-                <mod>{$this->request['NFe']['infNFe']['ide']['mod']}</mod>
-                <serie>{$this->request['NFe']['infNFe']['ide']['serie']}</serie>
-                <nNF>{$this->request['NFe']['infNFe']['ide']['nNF']}</nNF>
-                <dEmi>{$this->request['NFe']['infNFe']['ide']['dEmi']}</dEmi>
-                <tpNF>{$this->request['NFe']['infNFe']['ide']['tpNF']}</tpNF>
-                <cMunFG>{$this->request['NFe']['infNFe']['ide']['cMunFG']}</cMunFG>
-                <tpImp>{$this->request['NFe']['infNFe']['ide']['tpImp']}</tpImp>
-                <tpEmis>{$this->request['NFe']['infNFe']['ide']['tpEmis']}</tpEmis>
-                <cDV>{$this->request['NFe']['infNFe']['ide']['cDV']}</cDV>
-                <tpAmb>{$this->request['NFe']['infNFe']['ide']['tpAmb']}</tpAmb>
-                <finNFe>{$this->request['NFe']['infNFe']['ide']['finNFe']}</finNFe>
-                <procEmi>{$this->request['NFe']['infNFe']['ide']['procEmi']}</procEmi>
-                <verProc>{$this->request['NFe']['infNFe']['ide']['verProc']}</verProc>
-            </ide>
-            <emit>
-                <CNPJ>{$this->request['NFe']['infNFe']['emit']['CNPJ']}</CNPJ>
-                <xNome>{$this->request['NFe']['infNFe']['emit']['xNome']}</xNome>
-                <enderEmit>
-                    <xLgr>{$this->request['NFe']['infNFe']['emit']['enderEmit']['xLgr']}</xLgr>
-                    <nro>{$this->request['NFe']['infNFe']['emit']['enderEmit']['nro']}</nro>
-                    <xBairro>{$this->request['NFe']['infNFe']['emit']['enderEmit']['xBairro']}</xBairro>
-                    <cMun>{$this->request['NFe']['infNFe']['emit']['enderEmit']['cMun']}</cMun>
-                    <xMun>{$this->request['NFe']['infNFe']['emit']['enderEmit']['xMun']}</xMun>
-                    <UF>{$this->request['NFe']['infNFe']['emit']['enderEmit']['UF']}</UF>
-                    <CEP>{$this->request['NFe']['infNFe']['emit']['enderEmit']['CEP']}</CEP>
-                </enderEmit>
-                <IE>{$this->request['NFe']['infNFe']['emit']['IE']}</IE>
-                <CRT>{$this->request['NFe']['infNFe']['emit']['CRT']}</CRT>
-            </emit>
-            <dest>
-                <CNPJ>{$this->request['NFe']['infNFe']['dest']['CNPJ']}</CNPJ>
-                <xNome>{$this->request['NFe']['infNFe']['dest']['xNome']}</xNome>
-                <enderDest>
-                    <xLgr>{$this->request['NFe']['infNFe']['dest']['enderDest']['xLgr']}</xLgr>
-                    <nro>{$this->request['NFe']['infNFe']['dest']['enderDest']['nro']}</nro>
-                    <xBairro>{$this->request['NFe']['infNFe']['dest']['enderDest']['xBairro']}</xBairro>
-                    <cMun>{$this->request['NFe']['infNFe']['dest']['enderDest']['cMun']}</cMun>
-                    <xMun>{$this->request['NFe']['infNFe']['dest']['enderDest']['xMun']}</xMun>
-                    <UF>{$this->request['NFe']['infNFe']['dest']['enderDest']['UF']}</UF>
-                </enderDest>
-                <IE>{$this->request['NFe']['infNFe']['dest']['IE']}</IE>
-            </dest>
-            <det nItem="{$this->request['NFe']['infNFe']['det']['nItem']}">
-                <prod>
-                    <cProd>{$this->request['NFe']['infNFe']['det']['prod']['cProd']}</cProd>
-                    <cEAN>{$this->request['NFe']['infNFe']['det']['prod']['cEAN']}</cEAN>
-                    <xProd>{$this->request['NFe']['infNFe']['det']['prod']['xProd']}</xProd>
-                    <NCM>{$this->request['NFe']['infNFe']['det']['prod']['NCM']}</NCM>
-                    <CFOP>{$this->request['NFe']['infNFe']['det']['prod']['CFOP']}</CFOP>
-                    <uCom>{$this->request['NFe']['infNFe']['det']['prod']['uCom']}</uCom>
-                    <qCom>{$this->request['NFe']['infNFe']['det']['prod']['qCom']}</qCom>
-                    <vUnCom>{$this->request['NFe']['infNFe']['det']['prod']['vUnCom']}</vUnCom>
-                    <vProd>{$this->request['NFe']['infNFe']['det']['prod']['vProd']}</vProd>
-                    <cEANTrib>{$this->request['NFe']['infNFe']['det']['prod']['cEANTrib']}</cEANTrib>
-                    <uTrib>{$this->request['NFe']['infNFe']['det']['prod']['uTrib']}</uTrib>
-                    <qTrib>{$this->request['NFe']['infNFe']['det']['prod']['qTrib']}</qTrib>
-                    <vUnTrib>{$this->request['NFe']['infNFe']['det']['prod']['vUnTrib']}</vUnTrib>
-                    <indTot>{$this->request['NFe']['infNFe']['det']['prod']['indTot']}</indTot>
-                </prod>
-                <imposto>
-                    <PIS>
-                        <PISAliq>
-                            <CST>{$this->request['NFe']['infNFe']['det']['imposto']['PIS']['PISAliq']['CST']}</CST>
-                            <vBC>{$this->request['NFe']['infNFe']['det']['imposto']['PIS']['PISAliq']['vBC']}</vBC>
-                            <pPIS>{$this->request['NFe']['infNFe']['det']['imposto']['PIS']['PISAliq']['pPIS']}</pPIS>
-                            <vPIS>{$this->request['NFe']['infNFe']['det']['imposto']['PIS']['PISAliq']['vPIS']}</vPIS>
-                        </PISAliq>
-                    </PIS>
-                    <COFINS>
-                        <COFINSAliq>
-                            <CST>{$this->request['NFe']['infNFe']['det']['imposto']['COFINS']['COFINSAliq']['CST']}</CST>
-                            <vBC>{$this->request['NFe']['infNFe']['det']['imposto']['COFINS']['COFINSAliq']['vBC']}</vBC>
-                            <pCOFINS>{$this->request['NFe']['infNFe']['det']['imposto']['COFINS']['COFINSAliq']['pCOFINS']}</pCOFINS>
-                            <vCOFINS>{$this->request['NFe']['infNFe']['det']['imposto']['COFINS']['COFINSAliq']['vCOFINS']}</vCOFINS>
-                        </COFINSAliq>
-                    </COFINS>
-                </imposto>
-            </det>
-            <total>
-                <ICMSTot>
-                    <vBC>{$this->request['NFe']['infNFe']['total']['ICMSTot']['vBC']}</vBC>
-                    <vICMS>{$this->request['NFe']['infNFe']['total']['ICMSTot']['vICMS']}</vICMS>
-                    <vBCST>{$this->request['NFe']['infNFe']['total']['ICMSTot']['vBCST']}</vBCST>
-                    <vST>{$this->request['NFe']['infNFe']['total']['ICMSTot']['vST']}</vST>
-                    <vProd>{$this->request['NFe']['infNFe']['total']['ICMSTot']['vProd']}</vProd>
-                    <vFrete>{$this->request['NFe']['infNFe']['total']['ICMSTot']['vFrete']}</vFrete>
-                    <vSeg>{$this->request['NFe']['infNFe']['total']['ICMSTot']['vSeg']}</vSeg>
-                    <vDesc>{$this->request['NFe']['infNFe']['total']['ICMSTot']['vDesc']}</vDesc>
-                    <vII>{$this->request['NFe']['infNFe']['total']['ICMSTot']['vII']}</vII>
-                    <vIPI>{$this->request['NFe']['infNFe']['total']['ICMSTot']['vIPI']}</vIPI>
-                    <vPIS>{$this->request['NFe']['infNFe']['total']['ICMSTot']['vPIS']}</vPIS>
-                    <vCOFINS>{$this->request['NFe']['infNFe']['total']['ICMSTot']['vCOFINS']}</vCOFINS>
-                    <vOutro>{$this->request['NFe']['infNFe']['total']['ICMSTot']['vOutro']}</vOutro>
-                    <vNF>{$this->request['NFe']['infNFe']['total']['ICMSTot']['vNF']}</vNF>
-                </ICMSTot>
-            </total>
-            <transp>
-                <modFrete>{$this->request['NFe']['infNFe']['transp']['modFrete']}</modFrete>
-            </transp>
-        </infNFe>
-    </NFe>
-</enviNFe>
-EOF;
+        if(!isset($this->request->NFe->infNFe->Id)) {
+            $arrayIdCalculado = self::calcularId($this->request);
+            $this->request->NFe->infNFe->Id = $arrayIdCalculado['Id'];
+            $this->request->NFe->infNFe->ide->cDV = $arrayIdCalculado['cDV'];
+        }
+
+        $this->xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><enviNFe versao=\"{$this->versao}\" xmlns=\"http://www.portalfiscal.inf.br/nfe\">";
+        $this->xml .= \helpers\ObjectHelper::objectToStringXml($this->request);
+        $this->xml .= "</enviNFe>";
+
+        //TODO: melhorar
+        $this->xml = str_replace("<infNFe>", "<infNFe Id=\"{$this->request->NFe->infNFe->Id}\" versao=\"{$this->versao}\">", $this->xml);
+        $this->xml = preg_replace('~\<Id\>.{47}\</Id\>~', "", $this->xml);
+        $this->xml = str_replace("<det>", "<det nItem=\"{$this->request->NFe->infNFe->det->nItem}\">", $this->xml);
+        $this->xml = preg_replace('~\<nItem\>.\</nItem\>~', "", $this->xml);
+
         return $this->xml;
     }
 
@@ -318,7 +219,7 @@ EOF;
 <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
   <soap12:Header>
     <nfeCabecMsg xmlns="http://www.portalfiscal.inf.br/nfe/wsdl/NfeRecepcao2">
-      <cUF>{$this->request['UF']}</cUF>
+      <cUF>{$this->UF}</cUF>
       <versaoDados>{$this->versao}</versaoDados>
     </nfeCabecMsg>
   </soap12:Header>
@@ -335,30 +236,67 @@ EOF;
      * Método que retorna o Id
      * no Manual: 5.4 Chave de Acesso da NF-e
      * 
-     * @param $uf
-     * @param $data
-     * @param $cnpj
-     * @param $mod
-     * @param $serie
-     * @param $nNF
-     * @param $cNF
      * @author Eric Maicon
      */
-    public static function calcularId($uf, $data, $cnpj, $mod, $serie, $nNF, $tpEmiss, $cNF) {
-        $retorno = '';
-        $retorno .= \NFe::getUfCode($uf);
-        $retorno .= date("ym", strtotime($data));
+    public static function calcularId($request) {
+        $cUF = $request->NFe->infNFe->ide->cUF;
+        $dEmi = date("ym", strtotime($request->NFe->infNFe->ide->dEmi));
+        $cnpj = $request->NFe->infNFe->emit->CNPJ;
+        $mod = $request->NFe->infNFe->ide->mod;
+        $serie = str_pad($request->NFe->infNFe->ide->serie, 3, 0, STR_PAD_LEFT);
+        $nNF = $request->NFe->infNFe->ide->nNF;
+        $tpEmis = $request->NFe->infNFe->ide->tpEmis;
+        $cNF = $request->NFe->infNFe->ide->cNF;
+
+        if(strlen($cUF) != 2) {
+            throw new \exceptions\InvalidIdParamException("o UF (cUF) deve ter 2 dígitos");
+        }
+
+        if(strlen($dEmi) != 4) {
+            throw new \exceptions\InvalidIdParamException("A data de emissão (dEmi) está inválida");
+        }
+
+        if(strlen($cnpj) != 14) {
+            throw new \exceptions\InvalidIdParamException("O CNPJ (cnpj) deve ter 14 dígitos");
+        }
+
+        if(strlen($mod) != 2) {
+            throw new \exceptions\InvalidIdParamException("O modelo (mod) deve ter 2 dígitos");
+        }
+
+        if(strlen($serie) != 3) {
+            throw new \exceptions\InvalidIdParamException("A série (serie) deve ter 3 dígitos");
+        }
+
+        if(strlen($nNF) != 9) {
+            throw new \exceptions\InvalidIdParamException("O número da nota (nNF) deve ter 9 dígitos");
+        }
+
+        if(strlen($tpEmis) != 1) {
+            throw new \exceptions\InvalidIdParamException("A Forma de Emissão (tpEmis) deve ter 1 dígito");
+        }
+
+        if(strlen($cNF) != 8) {
+            throw new \exceptions\InvalidIdParamException("O código númerico (cNF) deve ter 8 dígitos");
+        }
+
+        $retorno = 'NFe';
+        $retorno .= $cUF;
+        $retorno .= $dEmi;
         $retorno .= $cnpj;
         $retorno .= $mod;
         $retorno .= $serie;
         $retorno .= $nNF;
-        $retorno .= $tpEmiss;
+        $retorno .= $tpEmis;
         $retorno .= $cNF;
-        echo $retorno;
-        exit;
-        $retorno .= self::calcularDigitoVerificador($retorno);
 
-        return $retorno;
+        $cDV = self::calcularDigitoVerificador($retorno);
+        $retorno .= $cDV;
+
+        return array(
+            'Id' => $retorno,
+            'cDV' => $cDV,
+        );
     }
 
     /**
