@@ -9,12 +9,12 @@ Projeto em PHP que pretende contemplar:
 
 ## Métodos atendidos:
 
-* [https://github.com/ericmaicon/nfe#emiss%C3%A3o-de-notas-fiscais]Emissão ou Recepção de NFe (NfeRecepcao)
-* [#emiss%C3%A3o-de-notas-fiscais]Consulta de processamento da NFe (NfeConsultaCadastro)
-* [#emiss%C3%A3o-de-notas-fiscais]Consulta da NFe (NfeConsultaProtocolo)
-* [#emiss%C3%A3o-de-notas-fiscais]Inutilização (NfeInutilizacao)
-* [#emiss%C3%A3o-de-notas-fiscais]Consulta de cadastro (NfeConsultaCadastro)
-* [#emiss%C3%A3o-de-notas-fiscais]Eventos de Cancelamento NFe (RecepcaoEvento)
+* [#emiss%C3%A3o-de-notas-fiscais](Emissão ou Recepção de NFe (NfeRecepcao))
+* [#emiss%C3%A3o-de-notas-fiscais](Consulta de processamento da NFe (NfeConsultaCadastro))
+* [#emiss%C3%A3o-de-notas-fiscais](Consulta da NFe (NfeConsultaProtocolo))
+* [#emiss%C3%A3o-de-notas-fiscais](Inutilização (NfeInutilizacao))
+* [#emiss%C3%A3o-de-notas-fiscais](Consulta de cadastro (NfeConsultaCadastro))
+* [#emiss%C3%A3o-de-notas-fiscais](Eventos de Cancelamento NFe (RecepcaoEvento))
 
 ## Conceito da NFe:
 
