@@ -432,4 +432,5 @@ http://www.linhadecodigo.com.br/artigo/1695/iniciando-um-projeto-de-nota-fiscal-
 ### Créditos
 
 **Eric Maicon** <eric at ericmaicon dot com dot br>
+
 **Roberto L. Machado** <linux.rlm at gmail dot com> (Mesmo que ele nem saiba desse projeto, toda a função de assinatura foi copiada do código que ele fez [aqui](https://www.assembla.com/code/nfephp/subversion/nodes/658/branches/2.0/libs/ToolsNFePHP.class.php)).
