@@ -428,3 +428,9 @@ http://www.rt1.com.br/drupal/?q=content/como-funciona-nota-fiscal-eletr%C3%B4nic
 http://www.akadia.com/services/ssh_test_certificate.html
 
 http://www.linhadecodigo.com.br/artigo/1695/iniciando-um-projeto-de-nota-fiscal-eletronica-nfe.aspx
+
+### Créditos
+
+Eric Maicon <eric at ericmaicon dot com dot br>
+
+Roberto L. Machado <linux.rlm at gmail dot com> => Mesmo talvez nem sabendo desse projeto, toda a função de assinatura foi copiada do código que ele fez [aqui](https://www.assembla.com/code/nfephp/subversion/nodes/658/branches/2.0/libs/ToolsNFePHP.class.php)
