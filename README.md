@@ -39,7 +39,7 @@ $frameworkPath = __DIR__ . '/../lib';
 require_once($frameworkPath . '/NFe.php');
 ```
 
-Existe um arquivo de configuração que contém o caminho da chave (Arquivo com extensão .PEM) e as URLS de todos os estados e métodos WebService. Você pode ver esse [arquivo na pasta](https://github.com/ericmaicon/nfe/blob/master/exemplo/conf/conf.ini]exemplos/conf). Para utilizar a biblioteca, é preciso passar esse arquivo como parâmetro de configuração:
+Existe um arquivo de configuração que contém o caminho da chave (Arquivo com extensão .PEM) e as URLS de todos os estados e métodos WebService. Você pode ver esse [arquivo na pasta](https://github.com/ericmaicon/nfe/blob/master/exemplo/conf/conf.ini). Para utilizar a biblioteca, é preciso passar esse arquivo como parâmetro de configuração:
 
 ```php
 $configFile = __DIR__ . '/conf/conf.ini';
