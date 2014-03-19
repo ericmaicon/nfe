@@ -10,7 +10,7 @@ Projeto em PHP que pretende contemplar:
 ## Métodos atendidos:
 
 * [Emissão ou Recepção de NFe (NfeRecepcao)](#emiss%C3%A3o-de-notas-fiscais)
-* [Consulta de processamento da NFe (NfeConsultaCadastro)](#consulta-de-processamento)
+* [Consulta de processamento da NFe (NfeRetRecepcao)](#consulta-de-processamento)
 * [Consulta da NFe (NfeConsultaProtocolo)](#consulta-de-nfe)
 * [Inutilização (NfeInutilizacao)](#inutiliza%C3%A7%C3%A3o)
 * [Eventos de Cancelamento NFe (RecepcaoEvento)](#evento-de-cancelamento)
