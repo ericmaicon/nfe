@@ -75,12 +75,14 @@ EOF;
      * @author Eric Maicon
      */
     protected function getEnvelopedXml($xml) {
+        $uf = \NFe::getUfCode($this->UF);
+
         return <<<EOF
 <?xml version="1.0" encoding="utf-8"?>
 <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
   <soap12:Header>
     <nfeCabecMsg xmlns="http://www.portalfiscal.inf.br/nfe/wsdl/CadConsultaCadastro2">
-      <cUF>{$this->UF}</cUF>
+      <cUF>{$uf}</cUF>
       <versaoDados>{$this->versao}</versaoDados>
     </nfeCabecMsg>
   </soap12:Header>

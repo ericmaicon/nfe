@@ -152,6 +152,7 @@ abstract class NFeMetodo {
             if($envelop) {
                 $xml = $this->envelop($xml);
             }
+
             //Enviando para o SEFAZ
             $response = \helpers\CurlHelper::send($url, $certificado, $xml);
 
