@@ -17,7 +17,7 @@ NFe::configure($configFile);
 $consulta = new metodos\NfeRetRecepcao(
     array(
         'tpAmb' => '2',
-        'nRec' => '351000078642323',
+        'nRec' => '351000078647882',
     )
 );
 $consulta->UF = 'SP';
