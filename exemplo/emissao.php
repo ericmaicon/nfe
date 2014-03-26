@@ -69,8 +69,62 @@ $recepcao = new metodos\NFeRecepcao(
                     ),
                     'IE' => 'ISENTO',
                 ),
-                'det' => array(
-                    'nItem' => 1,
+                'det1' => array(
+                    'prod' => array(
+                        'cProd' => 'CFOP9999',
+                        'cEAN' => '',
+                        'xProd' => 'Bateria Eletronica',
+                        'NCM' => '00',
+                        'CFOP' => 5102,
+                        'uCom' => 1,
+                        'qCom' => 1,
+                        'vUnCom' => 100.00,
+                        'vProd' => 100.00,
+                        'cEANTrib' => '',
+                        'uTrib' => 1,
+                        'qTrib' => 1,
+                        'vUnTrib' => 100.00,
+                        'indTot' => 0,
+                    ),
+                    'imposto' => array(
+                        'ICMS' => array(
+                            'ICMS00' => array(
+                                'orig' => 0,
+                                'CST' => "00",
+                                'modBC' => 0,
+                                'vBC' => 0,
+                                'pICMS' => 0,
+                                'vICMS' => 0,
+                            ),
+                        ),
+                        'IPI' => array(
+                            'clEnq' => 1,
+                            'cSelo' => 1,
+                            'qSelo' => 1,
+                            'cEnq' => 1,
+                            'IPINT' => array(
+                                'CST' => "02",
+                            ),
+                        ),
+                        'PIS' => array(
+                            'PISAliq' => array(
+                                'CST' => '01',
+                                'vBC' => 0,
+                                'pPIS' => 0,
+                                'vPIS' => 0,
+                            ),
+                        ),
+                        'COFINS' => array(
+                            'COFINSAliq' => array(
+                                'CST' => '01',
+                                'vBC' => 0,
+                                'pCOFINS' => 0,
+                                'vCOFINS' => 0,
+                            ),
+                        ),
+                    ),
+                ),
+                'det2' => array(
                     'prod' => array(
                         'cProd' => 'CFOP9999',
                         'cEAN' => '',

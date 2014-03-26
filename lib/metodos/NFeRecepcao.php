@@ -54,8 +54,18 @@ class NFeRecepcao extends \metodos\NFeMetodo {
         //TODO: melhorar
         $this->xml = str_replace("<infNFe>", "<infNFe Id=\"{$this->request->NFe->infNFe->Id}\" versao=\"{$this->versao}\">", $this->xml);
         $this->xml = preg_replace('~\<Id\>.{47}\</Id\>~', "", $this->xml);
-        $this->xml = str_replace("<det>", "<det nItem=\"{$this->request->NFe->infNFe->det->nItem}\">", $this->xml);
-        $this->xml = preg_replace('~\<nItem\>.\</nItem\>~', "", $this->xml);
+
+        preg_match_all("~<det[1-9]>~", $this->xml, $out, PREG_PATTERN_ORDER);
+
+        $i=1;
+        foreach($out[0] as $name => $value) {
+            $this->xml = str_replace($value, "<det nItem=\"" . $i . "\">", $this->xml);
+            $this->xml = str_replace("</det" . $i . ">", "</det>", $this->xml);
+            $i++;
+        }
+
+        echo $this->xml;
+        exit;
 
         return $this->xml;
     }
