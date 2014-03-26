@@ -34,6 +34,7 @@ class XmlHelper {
      */
     public static function treatXml($xml) {
         $xml = preg_replace('/(\s\s+|\t|\n)/', '', $xml);
+        $xml = preg_replace('/\s{2,}/', ' ', $xml);
 
         return $xml;
     }

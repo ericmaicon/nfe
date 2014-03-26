@@ -64,9 +64,6 @@ class NFeRecepcao extends \metodos\NFeMetodo {
             $i++;
         }
 
-        echo $this->xml;
-        exit;
-
         return $this->xml;
     }
 
