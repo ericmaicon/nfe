@@ -5,7 +5,7 @@ namespace helpers;
 /**
  * Histórico de alterações:
  * {dd/mm/yyyy} {autor} {descrição}
- * 
+ * 27/03/2014   Eric    Coloquei o treatXml no valor do array
  **/
 
 /**
@@ -34,7 +34,7 @@ class ObjectHelper {
             if(is_object($value)) {
                 $xml .= self::objectToStringXml($value);
             } else {
-                $xml .= $value;
+                $xml .= \helpers\XmlHelper::treatXml($value);
             }
             $xml .= '</' . $key . '>';
         }

@@ -5,6 +5,7 @@ namespace helpers;
 /**
  * Histórico de alterações:
  * {dd/mm/yyyy} {autor} {descrição}
+ * 27/03/2014   Eric    Coloquei para o treatXml tratar espaços
  * 
  **/
 
@@ -35,6 +36,7 @@ class XmlHelper {
     public static function treatXml($xml) {
         $xml = preg_replace('/(\s\s+|\t|\n)/', '', $xml);
         $xml = preg_replace('/\s{2,}/', ' ', $xml);
+        $xml = trim($xml);
 
         return $xml;
     }
