@@ -253,7 +253,7 @@ EOF;
         $cnpj = $request->NFe->infNFe->emit->CNPJ;
         $mod = $request->NFe->infNFe->ide->mod;
         $serie = str_pad($request->NFe->infNFe->ide->serie, 3, 0, STR_PAD_LEFT);
-        $nNF = $request->NFe->infNFe->ide->nNF;
+        $nNF = str_pad($request->NFe->infNFe->ide->nNF, 9, 0, STR_PAD_LEFT);
         $tpEmis = $request->NFe->infNFe->ide->tpEmis;
         $cNF = $request->NFe->infNFe->ide->cNF;
 

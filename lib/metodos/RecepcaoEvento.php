@@ -41,11 +41,14 @@ class RecepcaoEvento extends \metodos\NFeMetodo {
      * @author Eric Maicon
      */
     public function getXml() {
-        if(!isset($this->request->NFe->infNFe->Id)) {
+        if(!isset($this->request->Id)) {
             $id = self::calcularId($this->request);
+        } else {
+            $id = $this->request->Id;
         }
 
-        $this->xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><evento versao=\"{$this->versao}\" xmlns=\"http://www.portalfiscal.inf.br/nfe\">";
+        $this->xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
+        $this->xml .= "<evento versao=\"{$this->versao}\" xmlns=\"http://www.portalfiscal.inf.br/nfe\">";
         $this->xml .= \helpers\ObjectHelper::objectToStringXml($this->request);
         $this->xml .= "</evento>";
 
@@ -127,7 +130,10 @@ EOF;
   </soap12:Header>
   <soap12:Body>
     <nfeDadosMsg xmlns="http://www.portalfiscal.inf.br/nfe/wsdl/RecepcaoEvento">
+    <envEvento versao="1.00" xmlns="http://www.portalfiscal.inf.br/nfe">
+    <idLote>1</idLote>
     {$xml}
+    </envEvento>
     </nfeDadosMsg>
   </soap12:Body>
 </soap12:Envelope>
