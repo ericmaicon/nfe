@@ -1,5 +1,8 @@
 Nota Fiscal Eletrônica
 ===
+
+# STATUS: UNMAINTAINED
+
 Projeto em PHP que pretende contemplar:
 
 * Criação do arquivo XML;
